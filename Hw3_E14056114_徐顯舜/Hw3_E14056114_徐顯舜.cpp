@@ -1,10 +1,10 @@
 #include <iostream>
 #include <queue>  //方便插入 leaf 和 node
 #include <string>  //第五題需使用
-#include <bits/stdc++.h> //sort 函式需求
+#include <bits/stdc++.h> //其他函式需求
 using namespace std;
 
-struct HuffNode //使用 max heap 去實作
+struct HuffNode //使用 min heap 去實作
 {
 int data;
 char symbol;
@@ -97,7 +97,7 @@ int main()
     cout << "Your input frequency[int]: " ;
     for(int i = 0; i < k + 1; i++)
         cout << freq[i] << " ";
-    cout << endl << "===============================================";
+    cout << endl << "===============================================" << endl;
     MinHeap min_heap(k+1);
     // Initalize the leaf node
     for (int i = 0; i < k+1; i++)  //將元素 push 進去
@@ -225,7 +225,7 @@ void MinHeap::Pop()
 
         while(child <= heapSize)
         {
-            if(child < heapSize && heap[child].data < heap[child + 1].data)
+            if(child < heapSize && heap[child].data > heap[child + 1].data)
                 child++;
             if(lastE.data <= heap[child].data)
                 break;
@@ -270,7 +270,7 @@ int MinHeap::Level()    //計算 heap 的 level，heapSize 與 level 關係 2^level + 1
 {
     int i = 1;
     int k = 0;
-    while(i < heapSize)
+    while(i <= heapSize)
     {
         i *= 2;
         k++;
@@ -446,7 +446,7 @@ int MinHeap::Max(int a, int b)
 int MinHeap::getHeight(HuffNode *root)
 {
    if (isLeaf(root)) //到底部
-         return -1;
+         return 0;
 
    // 去尋找其左右子樹的深度
    int lh = getHeight(root->leftChild);  //recursive
